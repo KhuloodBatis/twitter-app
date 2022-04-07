@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Tweet;
 
-use App\Http\Resources\UserResource;
+use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TweetResource extends JsonResource
@@ -16,7 +16,7 @@ class TweetResource extends JsonResource
     public function toArray($request)
     {
         return [
-           
+            'id' => $this->id,
             'body' => $this->body,
             'user' => new UserResource($this->user),
 
