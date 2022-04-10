@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Tweets;
 
 use App\Models\Tweet;
 use Illuminate\Http\Request;
@@ -17,10 +17,8 @@ class TweetController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'body' => ['required', 'max:280']
-        ]);
-       $tweet=  $request->user()->tweets()->create($request->only('body'));
+        $request->validate(['body' => ['required', 'max:280']]);
+        $tweet =  $request->user()->tweets()->create($request->only('body'));
         return new TweetResource($tweet);
     }
 }

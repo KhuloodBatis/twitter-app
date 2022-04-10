@@ -15,13 +15,10 @@ class LoginController extends Controller
             'email' => ['required', 'email', 'exists:users,email'],
             'password' => ['required', 'integer', 'min:6'],
         ]);
-
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $token = auth()->user()->createToken('key')->plainTextToken;
-
             return response()->json(['access_token' => $token]);
         }
-
         throw ValidationException::withMessages([
             'email' => __('auth.failed')
         ]);

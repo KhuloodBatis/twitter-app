@@ -17,7 +17,6 @@ class RegisterController extends Controller
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'integer', 'min:6'],
         ]);
-
         $user = User::create([
             'name' => $request->name,
             'username' => $request->username,
@@ -26,7 +25,6 @@ class RegisterController extends Controller
         ]);
 
         $token = $user->createToken('key')->plainTextToken;
-
         return response()->json(['access_token' => $token]);
     }
 }
