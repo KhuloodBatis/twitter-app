@@ -26,7 +26,7 @@ class FollowingController extends Controller
         return response()->json(['status' => 'following was added']);
     }
 
-    public function delete( Request $request,User $user)
+    public function destroy( Request $request,User $user)
     {
      $request->user()->followings()
      ->detach($user->id);

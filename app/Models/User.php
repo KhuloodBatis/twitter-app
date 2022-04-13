@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function tweets(): HasMany
     {
-        return $this->hasMany(Tweet::class, 'user_id')->withTimestamps();;
+        return $this->hasMany(Tweet::class, 'user_id');
     }
 
     public function avatar()
@@ -66,5 +66,10 @@ class User extends Authenticatable
     public function followers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'followers', 'following_id', 'user_id')->withTimestamps();
+    }
+
+    public function likes(){
+
+        return $this->morphMany(Like::class,'likeable');
     }
 }

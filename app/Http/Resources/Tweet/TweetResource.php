@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Tweet;
 
 use App\Http\Resources\User\UserResource;
+use App\Http\Resources\Like\LikersResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TweetResource extends JsonResource
@@ -16,9 +17,10 @@ class TweetResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id'   => $this->id,
             'body' => $this->body,
             'user' => new UserResource($this->user),
+            'likes'=> $this->likes_count,
 
         ];
     }
