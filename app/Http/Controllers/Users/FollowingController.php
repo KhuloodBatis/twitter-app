@@ -16,20 +16,16 @@ class FollowingController extends Controller
         return UserResource::collection($followings);
     }
 
-    public function store(User $user, Request $request)
+    public function store(Request $request,User $user)
     {
-        $request->validate([
-            'following_id' => ['required']
-        ]);
-
-        $request->user()->followings()->attach(['following_id' => $request->following_id]);
+        $request->user()->followings()->attach($user->id);
         return response()->json(['status' => 'following was added']);
     }
 
-    public function destroy( Request $request,User $user)
+    public function destroy(Request $request, User $user)
     {
-     $request->user()->followings()
-     ->detach($user->id);
-     return response()->json(['status' => 'following was deleted']);
+        $request->user()->followings()
+            ->detach($user->id);
+        return response()->json(['status' => 'following was deleted']);
     }
 }
