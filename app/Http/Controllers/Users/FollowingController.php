@@ -12,13 +12,13 @@ class FollowingController extends Controller
 {
     public function index(Request $request)
     {
-        $followings = $request->user()->followings()->get();
+        $followings = $request->user()->followings()->isFollowed()->get();
         return UserResource::collection($followings);
     }
 
     public function store(Request $request,User $user)
     {
-        $request->user()->followings()->attach($user->id);
+        $request->user()->followings()->attach($user);
         return response()->json(['status' => 'following was added']);
     }
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Tweet;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -68,10 +69,17 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'followers', 'following_id', 'user_id')->withTimestamps();
     }
 
-    public function likes(){
+    public function likes()
+    {
 
-        return $this->morphMany(Like::class,'likeable');
+        return $this->morphMany(Like::class, 'likeable');
     }
 
-    
+    public function scopeIsFollowed($query)
+    {
+        $query->withCount(['followers' => function ($query) {
+            $query->where('user_id', Auth::id());
+        }]);
+
+    }
 }

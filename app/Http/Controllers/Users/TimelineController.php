@@ -14,8 +14,11 @@ class TimelineController extends Controller
     {
         $tweets = Tweet::whereHas('user.followers', function ($query) {
             $query->where('user_id', Auth::id());
-        })->paginate(10);
-
+            //->isfollowed();
+        })
+        ->isLike()
+        //->isfollowed()
+        ->paginate(10);
         return TweetResource::collection($tweets);
     }
 }

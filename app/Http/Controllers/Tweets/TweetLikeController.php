@@ -14,22 +14,23 @@ class TweetLikeController extends Controller
     {
 
         if ($tweet->user_id === $request->user()->id)
-            return response(null,401);
+            return response(null, 401);
 
         $tweet->likes()->create([
-            'user_id'=>$request->user()->id,
+            'user_id' => $request->user()->id,
         ]);
+
 
         return  new TweetResource($tweet);
     }
 
     public function destroy(Tweet $tweet, Request $request)
     {
-        if ($tweet->user_id === $request->user()->id){
-            return response(null,401);
+        if ($tweet->user_id === $request->user()->id) {
+            return response(null, 401);
         }
         $tweet->likes()->delete([
-            'user_id'=>$request->user()->id,
+            'user_id' => $request->user()->id,
         ]);
     }
 }

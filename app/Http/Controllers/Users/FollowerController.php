@@ -13,7 +13,7 @@ class FollowerController extends Controller
 {
     public function index(Request $request)
     {
-        $followers = $request->user()->followers()->get();
+        $followers = $request->user()->followers()->isFollowed()->get();
         return UserResource::collection($followers);
     }
 }
