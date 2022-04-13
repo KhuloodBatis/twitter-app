@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources\User;
 
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Follower\FollowerResource;
 
 class UserResource extends JsonResource
 {
@@ -18,7 +20,11 @@ class UserResource extends JsonResource
             'id' =>$this->id,
             'name'=>$this->name,
             'username'=>'@'.$this->username,
-            'email'=>$this->email
+            'email'=>$this->email,
+            'avatar'=>$this->avatar(),
+            'is_followed'=>$this->followers_count,
+
+
         ];
     }
 }
