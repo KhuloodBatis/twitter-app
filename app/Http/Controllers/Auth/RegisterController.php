@@ -11,6 +11,7 @@ class RegisterController extends Controller
 {
     public function register(Request $request)
     {
+        
         $request->validate([
             'name' => ['required', 'alpha'],
             'username' => ['required', 'alpha_dash', 'unique:users'],

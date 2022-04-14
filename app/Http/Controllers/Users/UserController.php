@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function index(User $user, Request $request)
     {
-        $users = User::isFollowed()
+        $users = User::withIsFollowed()
             ->where('id', '!=', Auth::id())
             ->paginate(4);
         return UserResource::collection($users);

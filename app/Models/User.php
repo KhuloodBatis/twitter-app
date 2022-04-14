@@ -75,11 +75,10 @@ class User extends Authenticatable
         return $this->morphMany(Like::class, 'likeable');
     }
 
-    public function scopeIsFollowed($query)
+    public function scopeWithIsFollowed($query)
     {
-        $query->withCount(['followers' => function ($query) {
+        $query->withCount(['followers as is_followed' => function ($query) {
             $query->where('user_id', Auth::id());
         }]);
-
     }
 }

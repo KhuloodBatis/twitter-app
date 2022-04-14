@@ -12,7 +12,7 @@ class FollowingController extends Controller
 {
     public function index(Request $request)
     {
-        $followings = $request->user()->followings()->isFollowed()->get();
+        $followings = $request->user()->followings()->withIsFollowed()->get();
         return UserResource::collection($followings);
     }
 

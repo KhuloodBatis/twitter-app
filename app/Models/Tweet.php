@@ -27,11 +27,10 @@ class Tweet extends Model
         return $this->morphMany(Like::class, 'likeable');
     }
 
-    public function scopeIsLike($quere){
-       $quere->withCount(['likes' => function ($query) {
-        $query->where('user_id', Auth::id());
-    }]);
-
+    public function scopeWithIsLike($quere)
+    {
+        $quere->withCount(['likes' => function ($query) {
+            $query->where('user_id', Auth::id());
+        }]);
     }
-
 }
