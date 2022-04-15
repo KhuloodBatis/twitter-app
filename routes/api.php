@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Users\UserController;
 use App\Http\Controllers\Tweets\TweetController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Tweets\RetweetController;
 use App\Http\Controllers\Users\FollowerController;
 use App\Http\Controllers\Users\TimelineController;
 use App\Http\Controllers\Users\FollowingController;
@@ -39,6 +40,9 @@ Route::prefix('users')->group(function () {
         Route::delete('tweets/{tweet}', [TweetController::class, 'destroy']);
         Route::post('tweets/{tweet}/like', [TweetLikeController::class, 'store']);
         Route::delete('tweets/{tweet}/like', [TweetLikeController::class, 'destroy']);
+        Route::post('tweets/{tweet}/retweet', [RetweetController::class, 'store']);
+        Route::delete('tweets/{tweet}/unretweet', [RetweetController::class, 'destroy']);
+
 
         Route::get('people', [UserController::class, 'index']);
         Route::get('timeline', [TimelineController::class, 'index']);

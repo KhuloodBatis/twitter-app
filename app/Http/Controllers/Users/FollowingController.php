@@ -6,19 +6,25 @@ use App\Models\User;
 use App\Models\Follower;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\User\UserResource;
 
 class FollowingController extends Controller
 {
     public function index(Request $request)
     {
-        $followings = $request->user()->followings()->withIsFollowed()->get();
+        $followings = $request->user()->followings()
+            ->withIsFollowed()
+            ->get();
         return UserResource::collection($followings);
     }
 
-    public function store(Request $request,User $user)
+    public function store(Request $request, User $user)
     {
-        $request->user()->followings()->attach($user);
+        $request->user()->followings()
+            ->attach($user)
+            ->where('user_id', '!=', Auth::id())
+            ->exists();
         return response()->json(['status' => 'following was added']);
     }
 

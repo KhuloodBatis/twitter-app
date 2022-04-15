@@ -21,8 +21,8 @@ class TweetResource extends JsonResource
             'body' => $this->body,
             'user' => new UserResource($this->user),
             'user' => $this->user,
-            'likes'=> $this->likes_count,
-
+            'likes' => $this->likes_count,
+            
         ];
     }
 }

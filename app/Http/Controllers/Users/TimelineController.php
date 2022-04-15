@@ -10,15 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class TimelineController extends Controller
 {
-    public function index( Request $request,Tweet $tweets)
+    public function index(Request $request, Tweet $tweets)
     {
-        $tweets = Tweet::whereHas('user.followers', function ($query) {
-            $query->where('user_id', Auth::id());
 
+        $tweets = Tweet::whereHas('user.followers', function ($query) {
+            $query->where('user_id', Auth::id())->with('tweet.retweets');
         })
-            ->with([
-                'user' => fn ($query) => $query->withIsFollowed()
-            ])
+            ->with(['user' => fn ($query) => $query->withIsFollowed()])
             ->withIsLike()
             ->paginate(10);
         return TweetResource::collection($tweets);
