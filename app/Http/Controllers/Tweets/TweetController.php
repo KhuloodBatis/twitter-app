@@ -13,10 +13,8 @@ class TweetController extends Controller
 {
     public function index(Tweet $tweet)
     {
-        $tweets = Tweet::withCount(['likes' => function ($query) {
-            $query->where('user_id', Auth::id());
-        }])
-        ->paginate(4);
+        $tweets = Tweet::isLike()
+            ->paginate(4);
 
         return TweetResource::collection($tweets);
     }
@@ -29,7 +27,8 @@ class TweetController extends Controller
     }
 
     public function show(Tweet $tweet)
-    {  
+    {
+        $tweet->isLike();
         return new TweetResource($tweet);
     }
 
