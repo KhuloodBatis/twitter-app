@@ -13,12 +13,10 @@ class TweetLikeController extends Controller
 {
     public function store(Tweet $tweet, Request $request)
     {
-
-        $tweet->likes()->where('user_id',Auth::id())->exists();
-
+        $tweet->likes()->where('user_id', Auth::id())->exists();
         $tweet->likes()->create([
-                'user_id' => $request->user()->id,
-            ]);
+            'user_id' => $request->user()->id,
+        ]);
         return  new TweetResource($tweet);
     }
 
@@ -27,6 +25,5 @@ class TweetLikeController extends Controller
         $tweet->likes()->delete([
             'user_id' => $request->user()->id,
         ]);
-
     }
 }

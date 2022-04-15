@@ -13,22 +13,25 @@ class TweetController extends Controller
 {
     public function index(Tweet $tweet)
     {
-        $tweets = Tweet::isLike()
+        $tweets = Tweet::withIsLike()
+            ->where('user_id', Auth::id())
             ->paginate(4);
-
         return TweetResource::collection($tweets);
     }
 
     public function store(Request $request)
     {
         $request->validate(['body' => ['required', 'max:280']]);
-        $tweet =  $request->user()->tweets()->create($request->only('body'));
+        $tweet =  $request->user()
+            ->tweets()
+            ->create($request->only('body'));
         return new TweetResource($tweet);
     }
 
     public function show(Tweet $tweet)
     {
-        $tweet->isLike();
+        $tweet->withIsLike();
+        
         return new TweetResource($tweet);
     }
 
