@@ -36,18 +36,16 @@ class Tweet extends Model
     }
 
 
-    public function parent(Tweet $tweet): BelongsTo
+    public function parent()
     {
-        return $this->belongsTo(Tweet::class, 'tweet_id', 'parent_id')
-                        ->with('id', $tweet->parent_id);
+        return $this->hasOne(Tweet::class, 'id', 'parent_id');
     }
 
 
     public function retweets()
     {
-        return $this->hasMany(Tweet::class, 'parent_id', 'tweet_id');
+        return $this->hasMany(Tweet::class, 'parent_id', 'id');
     }
-
 
 
 }

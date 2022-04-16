@@ -13,7 +13,7 @@ class TimelineController extends Controller
     public function index(Request $request, Tweet $tweets)
     {
         $tweets = Tweet::whereHas('user.followers', function ($query) {
-            $query->where('user_id', Auth::id())->with('tweet.retweets');
+            $query->where('user_id', Auth::id())->with('tweet.parent');
         })
             ->with(['user' => fn ($query) => $query->withIsFollowed()])
             ->withIsLike()
