@@ -45,7 +45,6 @@ class Tweet extends Model
         }];
     }
 
-
     public function parent()
     {
         return $this->belongsTo(Tweet::class, 'parent_id', 'id');

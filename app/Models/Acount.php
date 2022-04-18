@@ -14,5 +14,4 @@ class Acount extends Model
         'username',
         'mobile',
     ];
-
 }
