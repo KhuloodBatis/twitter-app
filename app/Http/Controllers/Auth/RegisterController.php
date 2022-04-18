@@ -12,7 +12,7 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'alpha'],
+            'name' => ['required', 'string'],
             'username' => ['required', 'alpha_dash', 'unique:users'],
             'email' => ['required', 'email', 'unique:users,email'],
             'mobile' => ['required', 'string', 'min:10'],
@@ -20,7 +20,7 @@ class RegisterController extends Controller
         ]);
         $user = User::create([
             'name' => $request->name,
-            'username' => $request->username === null ? $request->username : $request->name,
+            'username' => $request->username,
             'email' => $request->email,
             'mobile' => $request->mobile,
             'password' => Hash::make($request->password),
