@@ -30,11 +30,7 @@ class TweetController extends Controller
 
     public function show(Tweet $tweet)
     {
-        $tweet->withIsLike();
-        if ($tweet->parent_id) {
-            $retweet = Tweet::where('id', $tweet->parent_id)->first();
-            return new TweetResource($retweet);
-        }
+        $tweet->loadIsLiked();
         return new TweetResource($tweet);
     }
 

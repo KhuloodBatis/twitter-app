@@ -18,6 +18,7 @@ class TimelineController extends Controller
             ->with(['user' => fn ($query) => $query->withIsFollowed()])
             ->withIsLike()
             ->paginate(10);
+
         return TweetResource::collection($tweets);
     }
 }

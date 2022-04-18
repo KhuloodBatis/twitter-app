@@ -19,10 +19,10 @@ class TweetResource extends JsonResource
         return [
             'id'   => $this->id,
             'body' => $this->body,
-            'parent_id'=>new TweetResource($this->parent),
+            'is_retweet'=>new TweetResource($this->parent),
             'user' => new UserResource($this->user),
             'user' => $this->user,
-            'likes' => $this->likes_count,
+            'is_liked' => $this->is_liked,
 
         ];
     }
