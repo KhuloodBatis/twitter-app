@@ -20,11 +20,10 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'username' => '@' . $this->username,
+            'mobile'=> $this->mobile,
             'email' => $this->email,
             'avatar' => $this->avatar(),
             'is_followed' => $this->is_followed,
-
-
         ];
     }
 }

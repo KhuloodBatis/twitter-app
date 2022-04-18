@@ -12,10 +12,13 @@ class RetweetController extends Controller
 {
     public function store(Request $request, Tweet $tweet)
     {
-        $request->user()->tweets()->create([
-            'body' => '',
+        $request->validate([
+            'body' => ['nullable', 'string', 'max:280']
+        ]);
+        $tweet = $request->user()->tweets()->create([
+            'body' => $request->body === null ? '' : $request->body,
             'parent_id' => $tweet->id,
-        ])->where('user_id', Auth::id())->exists();
+        ]);
         return new TweetResource($tweet);
     }
 

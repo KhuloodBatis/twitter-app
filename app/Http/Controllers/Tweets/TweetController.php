@@ -30,8 +30,7 @@ class TweetController extends Controller
 
     public function show(Tweet $tweet)
     {
-        $tweet->withIsLike();
-        
+        $tweet->loadIsLiked();
         return new TweetResource($tweet);
     }
 

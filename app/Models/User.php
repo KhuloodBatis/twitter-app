@@ -24,8 +24,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'username',
+        'mobile',
         'email',
         'password',
+
     ];
 
     /**
@@ -53,7 +55,8 @@ class User extends Authenticatable
         return $this->hasMany(Tweet::class, 'user_id');
     }
 
-    
+
+
     public function avatar()
     {
         return 'https://www.gravatar.com/avatar/' . md5($this->email) . '?d=mp';
