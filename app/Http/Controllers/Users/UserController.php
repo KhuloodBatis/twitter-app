@@ -10,7 +10,7 @@ use App\Http\Resources\User\UserResource;
 
 class UserController extends Controller
 {
-    public function index(User $user, Request $request)
+    public function index()
     {
         $users = User::withIsFollowed()
             ->where('id', '!=', Auth::id())

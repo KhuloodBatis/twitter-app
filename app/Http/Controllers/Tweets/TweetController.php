@@ -11,7 +11,7 @@ use App\Http\Resources\Tweet\TweetResource;
 
 class TweetController extends Controller
 {
-    public function index(Tweet $tweet)
+    public function index()
     {
         $tweets = Tweet::withIsLike()
             ->where('user_id', Auth::id())

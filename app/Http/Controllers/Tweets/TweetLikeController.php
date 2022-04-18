@@ -11,7 +11,7 @@ use App\Http\Resources\Tweet\TweetResource;
 
 class TweetLikeController extends Controller
 {
-    public function store(Tweet $tweet, Request $request)
+    public function store(Request $request, Tweet $tweet)
     {
         $tweet->likes()->where('user_id', Auth::id())->exists();
         $tweet->likes()->create([
@@ -20,7 +20,7 @@ class TweetLikeController extends Controller
         return  new TweetResource($tweet);
     }
 
-    public function destroy(Tweet $tweet, Request $request)
+    public function destroy(Request $request, Tweet $tweet)
     {
         $tweet->likes()->delete([
             'user_id' => $request->user()->id,

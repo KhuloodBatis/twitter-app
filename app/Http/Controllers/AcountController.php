@@ -38,11 +38,11 @@ class AcountController extends Controller
         // $user_name = $user_name . '_' . $user_count + 1;output//Ali JawishA_Ali Jawish_1
 
         // 5 way
-       // $str = str_replace(" ","",$request->name);//output AliJawish
-       //6 way
-       //$str = str_replace(" ","",$request->name.uniqid(4));output//AliJawish4625d0f7051c70
-       //7 way
-       $str =  hash("sha256", $request->name);
+        // $str = str_replace(" ","",$request->name);//output AliJawish
+        //6 way
+        //$str = str_replace(" ","",$request->name.uniqid(4));output//AliJawish4625d0f7051c70
+        //7 way
+        $str =  hash("sha256", $request->name);
 
         $request->validate([
             'name' => ['required', 'string'],
