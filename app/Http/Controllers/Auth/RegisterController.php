@@ -13,7 +13,7 @@ class RegisterController extends Controller
 {
     public function register(Request $request)
     {
-        $data   = $request->all();
+        $data = $request->all();
         $num1 = "5";
         $num2 = "0";
         $num3 = "966";
@@ -27,15 +27,13 @@ class RegisterController extends Controller
         } elseif (str_starts_with($data['mobile'], $num3)) {
             $data['mobile'] = $num4 . $lastNumMobile;
         } elseif (str_starts_with($data['mobile'], $num4)) {
-            $data['mobile'] =$num4 . $lastNumMobile;
+            $data['mobile'] = $num4 . $lastNumMobile;
         }
 
-        //return  $data['mobile'];
-
-        $name   = explode(' ', $request->name);
-        $num    = substr($data['mobile'], 6);
-        $random = Str::random(5);
-        $marks  = ['@', '$', '%', '#', '&', '*'];
+        $name   = explode(' ', $request->name); //the first name
+        $num    = substr($data['mobile'], -4); //4 last number from mobile
+        $random = Str::random(5); //5 random string
+        $marks  = ['@', '$', '%', '#', '&', '*']; //random markes
         $newName = ($name[0] . $marks[array_rand($marks)] . $num . $random);
         $genUsername = $data['username'] ? $data['username'] : $newName;
         $data['username'] = $genUsername;
