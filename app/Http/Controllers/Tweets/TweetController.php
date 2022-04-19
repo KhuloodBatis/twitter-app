@@ -11,24 +11,26 @@ use App\Http\Resources\Tweet\TweetResource;
 
 class TweetController extends Controller
 {
-    public function index(Tweet $tweet)
+    public function index()
     {
-        $tweets = Tweet::isLike()
+        $tweets = Tweet::withIsLike()
+            ->where('user_id', Auth::id())
             ->paginate(4);
-
         return TweetResource::collection($tweets);
     }
 
     public function store(Request $request)
     {
         $request->validate(['body' => ['required', 'max:280']]);
-        $tweet =  $request->user()->tweets()->create($request->only('body'));
+        $tweet =  $request->user()
+            ->tweets()
+            ->create($request->only('body'));
         return new TweetResource($tweet);
     }
 
     public function show(Tweet $tweet)
     {
-        $tweet->isLike();
+        $tweet->loadIsLiked();
         return new TweetResource($tweet);
     }
 
@@ -46,5 +48,9 @@ class TweetController extends Controller
     public function destroy(Tweet $tweet)
     {
         Tweet::where('id', $tweet->id)->delete();
+        
+        return response()->json([
+            'status'=> 'Tweet was delete',
+        ]);
     }
 }

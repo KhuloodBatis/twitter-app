@@ -3,7 +3,7 @@
 namespace App\Http\Resources\Tweet;
 
 use App\Http\Resources\User\UserResource;
-use App\Http\Resources\Like\LikersResource;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TweetResource extends JsonResource
@@ -19,10 +19,10 @@ class TweetResource extends JsonResource
         return [
             'id'   => $this->id,
             'body' => $this->body,
+            'is_retweet'=>new TweetResource($this->parent),
             'user' => new UserResource($this->user),
             'user' => $this->user,
-            'likes'=> $this->likes_count,
-
+            'is_liked' => $this->is_liked,
         ];
     }
 }

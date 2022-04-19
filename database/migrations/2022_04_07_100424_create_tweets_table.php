@@ -17,9 +17,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->text('body');
-            $table->integer('parent_id');
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->timestamps();
-
+            $table->unique(['user_id','parent_id']);
+            $table->foreign('parent_id')->references('id')->on('tweets')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
