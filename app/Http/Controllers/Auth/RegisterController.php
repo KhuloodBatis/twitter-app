@@ -27,10 +27,10 @@ class RegisterController extends Controller
         } elseif (str_starts_with($data['mobile'], $num3)) {
             $data['mobile'] = $num4 . $lastNumMobile;
         } elseif (str_starts_with($data['mobile'], $num4)) {
-            $data['mobile'] = $num4 . $lastNumMobile;
+            $data['mobile'] =$num4 . $lastNumMobile;
         }
 
-        return  $data['mobile'];
+        //return  $data['mobile'];
 
         $name   = explode(' ', $request->name);
         $num    = substr($data['mobile'], 6);

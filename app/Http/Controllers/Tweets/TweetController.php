@@ -48,9 +48,9 @@ class TweetController extends Controller
     public function destroy(Tweet $tweet)
     {
         Tweet::where('id', $tweet->id)->delete();
-        
+
         return response()->json([
-            'status'=> 'Tweet was delete',
+            'status' => 'Tweet was delete',
         ]);
     }
 }
