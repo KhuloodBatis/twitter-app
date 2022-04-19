@@ -16,7 +16,7 @@ class FollowerController extends Controller
     {
         $followers = $request->user()->followers()
             ->withIsFollowed()
-            ->where('user_id', Auth::id())
+            ->where('user_id','!=', Auth::id())
             ->get();
         return UserResource::collection($followers);
     }

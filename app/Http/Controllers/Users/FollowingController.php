@@ -21,17 +21,19 @@ class FollowingController extends Controller
 
     public function store(Request $request, User $user)
     {
-        $request->user()->followings()
-            ->attach($user)
-            ->where('user_id', '!=', Auth::id())
-            ->exists();
+        $is_followed = $user->followings()->where('user_id', '!=', Auth::id())->exists();
+
+        if (!$is_followed) {
+            $request->user()->followings()->attach($user);
+        }
+
         return response()->json(['status' => 'following was added']);
     }
 
     public function destroy(Request $request, User $user)
     {
-        $request->user()->followings()
-            ->detach($user->id);
+        $request->user()->followings()->detach($user->id);
+
         return response()->json(['status' => 'following was deleted']);
     }
 }

@@ -24,6 +24,8 @@ class RetweetController extends Controller
 
     public function destroy(Tweet $tweet)
     {
-        $tweet = Tweet::where('parent_id', $tweet->parent_id)->delete();
+        $tweet = Tweet::where('id', $tweet->id)->delete();
+
+        return response()->json(['status' => 'retweet was deleted']);
     }
 }
