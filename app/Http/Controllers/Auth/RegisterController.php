@@ -14,21 +14,11 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $data = $request->all();
-        $num1 = "5";
-        $num2 = "0";
-        $num3 = "966";
-        $num4 = "00966";
-        $lastNumMobile = substr($data['mobile'], -9);
 
-        if (str_starts_with($data['mobile'], $num1)) {
-            $data['mobile'] = $num4 . $lastNumMobile;
-        } elseif (str_starts_with($data['mobile'], $num2)) {
-            $data['mobile'] = $num4 . $lastNumMobile;
-        } elseif (str_starts_with($data['mobile'], $num3)) {
-            $data['mobile'] = $num4 . $lastNumMobile;
-        } elseif (str_starts_with($data['mobile'], $num4)) {
-            $data['mobile'] = $num4 . $lastNumMobile;
-        }
+        $num4 = "00966";
+        $lastNumMobile = $num4 . substr($data['mobile'], -9);
+        $data['mobile'] = $lastNumMobile;
+
 
         $name   = explode(' ', $request->name); //the first name
         $num    = substr($data['mobile'], -4); //4 last number from mobile

@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\AcountController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AcountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Users\UserController;
 use App\Http\Controllers\Tweets\TweetController;
+use App\Http\Controllers\Users\SearchController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Tweets\RetweetController;
 use App\Http\Controllers\Users\FollowerController;
@@ -53,5 +54,7 @@ Route::prefix('users')->group(function () {
         Route::post('people/{user}/follow', [FollowingController::class, 'store']);
         Route::delete('people/{user}/unfollow', [FollowingController::class, 'destroy']);
         Route::get('people/followers', [FollowerController::class, 'index']);
+
+        Route::get('search/{search}', [SearchController::class, 'search']);
     });
 });
