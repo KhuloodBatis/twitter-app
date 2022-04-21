@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Tweet extends Model
 {
@@ -59,5 +60,11 @@ class Tweet extends Model
     public function commits()
     {
         return $this->hasMany(Tweet::class, 'id', 'parent_id');
+    }
+
+
+    public function hashtags(): BelongsToMany
+    {
+        return $this->belongsToMany(Hashtag::class, 'hashtag_tweet', 'tweet_id', 'hashtag_id');
     }
 }

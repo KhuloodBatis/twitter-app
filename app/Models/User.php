@@ -56,6 +56,10 @@ class User extends Authenticatable
     }
 
 
+    public function hashtags(): HasMany
+    {
+        return $this->hasMany(Hashtag::class, 'user_id');
+    }
 
     public function avatar()
     {

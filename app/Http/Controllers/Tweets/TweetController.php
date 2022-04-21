@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Like\LikersResource;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Tweet\TweetResource;
+use App\Models\Hashtag;
 
 class TweetController extends Controller
 {
@@ -22,9 +23,25 @@ class TweetController extends Controller
     public function store(Request $request)
     {
         $request->validate(['body' => ['required', 'max:280']]);
+
+        $bodySegments = explode(' ', $request->body);
+        $hashtagIds = [];
+
+        for ($i = 0; $i < count($bodySegments); $i++) {
+            if (str_starts_with($bodySegments[$i], '#')) {
+                $hashtag = Hashtag::firstOrCreate([
+                    'title' => $bodySegments[$i],
+                ]);
+
+                $hashtagIds[] = $hashtag->id;
+            }
+        }
+
         $tweet =  $request->user()
             ->tweets()
             ->create($request->only('body'));
+        $tweet->hashtags()->attach($hashtagIds);
+
         return new TweetResource($tweet);
     }
 
@@ -50,7 +67,7 @@ class TweetController extends Controller
         Tweet::where('id', $tweet->id)->delete();
 
         return response()->json([
-            'status' => 'Tweet was delete',
+            'status' => 'Tweet was deleted',
         ]);
     }
 }
