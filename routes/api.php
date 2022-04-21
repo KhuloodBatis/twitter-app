@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AcountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Users\UserController;
 use App\Http\Controllers\Tweets\TweetController;
@@ -11,6 +10,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Tweets\RetweetController;
 use App\Http\Controllers\Users\FollowerController;
 use App\Http\Controllers\Users\TimelineController;
+use App\Http\Controllers\Hashtags\HashtagController;
 use App\Http\Controllers\Users\FollowingController;
 use App\Http\Controllers\Tweets\QuotationController;
 use App\Http\Controllers\Tweets\TweetLikeController;
@@ -55,6 +55,9 @@ Route::prefix('users')->group(function () {
         Route::delete('people/{user}/unfollow', [FollowingController::class, 'destroy']);
         Route::get('people/followers', [FollowerController::class, 'index']);
 
-        Route::get('search/{search}', [SearchController::class, 'search']);
+        Route::get('search', [SearchController::class, 'search']);
+
+        Route::get('hashtags', [HashtagController::class, 'index']);
+        Route::delete('hashtags/{hashtag}', [HashtagController::class, 'destroy']);
     });
 });
