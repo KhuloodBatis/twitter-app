@@ -20,6 +20,20 @@ class SearchController extends Controller
         $user = User::where('name', 'like', '%' . $search . '%')
             ->orWhere('username', 'like', '%' . $search . '%')->get();
         $hashtag = Hashtag::where('title', 'like', '%' . $search . '%')->get();
+        
+         if ($type == 'tweet'){
+             return $tweet;
+         }else if ($type =='user'){
+             return $user;
+         }else{
+             return $hashtag;
+         }
+
+
+        // SELECT users.name , users.username  ,tweets.body
+        // FROM users ,tweets
+        // where
+        // user_id = tweets.user_id
 
         return response()->json([$type=>[
             'user'    => $user,
