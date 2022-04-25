@@ -7,6 +7,7 @@ use App\Models\Tweet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\Tweets\TweetLiked;
 use App\Http\Resources\Tweet\TweetResource;
 
 class TweetLikeController extends Controller
@@ -20,6 +21,11 @@ class TweetLikeController extends Controller
             ]);
         }
 
+        //to prevent the send notification for userself
+        if ($request->user()->id !== $tweet->user_id) {
+            //to send notification when user do like to nothe user then the firest have notification
+            $tweet->user->notify(new TweetLiked($request->user(), $tweet));
+        }
         return  new TweetResource($tweet);
     }
 

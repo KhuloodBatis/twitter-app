@@ -10,10 +10,12 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Tweets\RetweetController;
 use App\Http\Controllers\Users\FollowerController;
 use App\Http\Controllers\Users\TimelineController;
-use App\Http\Controllers\Hashtags\HashtagController;
 use App\Http\Controllers\Users\FollowingController;
+use App\Http\Controllers\Hashtags\HashtagController;
 use App\Http\Controllers\Tweets\QuotationController;
 use App\Http\Controllers\Tweets\TweetLikeController;
+use App\Http\Controllers\Notifications\NotificationController;
+
 
 
 /*
@@ -46,6 +48,9 @@ Route::prefix('users')->group(function () {
         Route::delete('tweets/{tweet}/unlikes', [TweetLikeController::class, 'destroy']);
         Route::post('tweets/{tweet}/retweet', [RetweetController::class, 'store']);
         Route::delete('tweets/{tweet}/unretweet', [RetweetController::class, 'destroy']);
+        Route::get('notifications', [NotificationController::class, 'index']);
+        Route::delete('notifications/{notification}', [NotificationController::class, 'destroy']);
+
 
         Route::get('people', [UserController::class, 'index']);
         Route::get('timeline', [TimelineController::class, 'index']);
