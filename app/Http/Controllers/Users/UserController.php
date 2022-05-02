@@ -17,4 +17,9 @@ class UserController extends Controller
             ->paginate(4);
         return UserResource::collection($users);
     }
+
+    public function who_am_i()
+    {
+        return Auth::user();
+    }
 }
