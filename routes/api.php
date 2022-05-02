@@ -15,8 +15,7 @@ use App\Http\Controllers\Hashtags\HashtagController;
 use App\Http\Controllers\Tweets\QuotationController;
 use App\Http\Controllers\Tweets\TweetLikeController;
 use App\Http\Controllers\Notifications\NotificationController;
-
-
+use App\Http\Controllers\Users\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +36,7 @@ Route::post('login', [LoginController::class, 'login']);
 
 Route::prefix('users')->group(function () {
     Route::post('register', [RegisterController::class, 'register']);
+
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('tweets', [TweetController::class, 'index']);
@@ -64,5 +64,9 @@ Route::prefix('users')->group(function () {
 
         Route::get('hashtags', [HashtagController::class, 'index']);
         Route::delete('hashtags/{hashtag}', [HashtagController::class, 'destroy']);
+
+        Route::get('messages', [MessageController::class, 'index']);
+        Route::post('messages', [MessageController::class, 'store']);
+        Route::delete('messages/{messge}/delete', [MessageController::class, 'destroy']);
     });
 });

@@ -17,12 +17,13 @@ class TweetResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'   => $this->id,
-            'body' => $this->body,
-            'is_retweet'=>new TweetResource($this->parent),
-            'user' => new UserResource($this->user),
-            'user' => $this->user,
-            'is_liked' => $this->is_liked,
+            'id'         => $this->id,
+            'body'       => $this->body,
+            'is_retweet' => new TweetResource($this->parent),
+            'user'       => new UserResource($this->user),
+            'user'       => $this->user,
+            'is_liked'   => $this->is_liked,
+            'created_at' => $this->created_at,
         ];
     }
 }

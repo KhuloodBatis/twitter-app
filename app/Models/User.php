@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Chat;
+use App\Models\Room;
 use App\Models\Tweet;
+use App\Models\Message;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Notifications\Notifiable;
@@ -87,5 +90,10 @@ class User extends Authenticatable
         $query->withCount(['followers as is_followed' => function ($query) {
             $query->where('user_id', Auth::id());
         }]);
+    }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class);
     }
 }
