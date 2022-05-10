@@ -21,8 +21,8 @@ class MessageResource extends JsonResource
             'id'          => $this->id,
             'body'        => $this->body,
             'created_at'  => $this->created_at,
-            'sendedBy'    => new UserResource($request->user()),
-            'receivedBy'  => new UserResource($request->user()),
+            'sendedBy'    => new UserResource($request->user()->name),
+            'receivedBy'  => new UserResource($request->user()->name),
         ];
     }
 }
